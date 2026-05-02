@@ -1,0 +1,1 @@
+//Historico.js registrar venda, registrar pagamento, buscar histórico

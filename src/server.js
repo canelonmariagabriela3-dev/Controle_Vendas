@@ -1,11 +1,12 @@
 require('dotenv').config({ path: '../.env' }); // O .env costuma ficar na raiz, fora da src
 const express = require('express');
-const db = require('./index'); // Importa a conexão do MySQL
-
+const db = require('./Config/index'); // Importa a conexão do MySQL
+const clienteRoutes = require('./routes/clienteRoutes'); // Importa as rotas do cliente
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use('/api', clienteRoutes); // Prefixa as rotas com /api, por exemplo: /api/clientes
 
 // O teste de conexão que você queria
 db.getConnection()
