@@ -17,8 +17,22 @@ const Cliente = {
     buscarPorId: async (id) => {
         const [rows] = await db.query('SELECT * FROM clientes WHERE id = ?', [id]);
         return rows[0];
-    }, 
-   
+    },
+    atualizarSaldo: async (id_Cliente, valor) => {
+        const [result] = await db.query(
+            'UPDATE clientes SET saldo_fiado = saldo_fiado + ? WHERE id = ?',
+            [valor, id_Cliente]
+        );
+        return result.affectedRows > 0;
+    },
+    adicionarPontos: async (id_Cliente, pontos) => {
+        const [result] = await db.query(
+            'UPDATE clientes SET pontos_fidelidade = pontos_fidelidade + ? WHERE id = ?',
+            [pontos, id_Cliente]
+        );
+        return result.affectedRows > 0;
+
+    }
 };
 
-module.exports = Cliente;
+module.exports = Cliente; 
