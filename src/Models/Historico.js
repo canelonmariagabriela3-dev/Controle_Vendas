@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../Config/index'); // Importa a conexão do MySQL
 
 const Historico = {
   registro: async (id_cliente, tipo, valor) => {
@@ -12,6 +12,7 @@ const Historico = {
 
     return result.insertId;
   },
+
 };
 
 module.exports = Historico;

@@ -35,6 +35,20 @@ const HistoricoController = {
       console.error('Erro ao registrar venda:', err);
       res.status(500).json({ error: 'Erro ao registrar venda' });
     }
+  },
+  registrarPagamento: async (req, res) => {
+    try {
+      const { id_cliente, valor } = req.body;
+
+      await Historico.registro(id_cliente, 'pagamento', valor);
+      await Cliente.diminuirSaldo(id_cliente, valor);
+
+      res.status(200).json({ message: 'Pagamento registrado com sucesso!' });
+
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro interno' });
+    }
   }
 
 };

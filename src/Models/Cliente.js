@@ -1,6 +1,6 @@
 // Cliente.js
 // criar cliente,buscar cliente, atualizar
-const db = require('../index');
+const db = require('../Config/index'); // Importa a conexão do MySQL
 
 const Cliente = {
     criar: async (nome, telefone, local_trabalho) => {
@@ -32,7 +32,16 @@ const Cliente = {
         );
         return result.affectedRows > 0;
 
-    }
+    },
+    diminuirSaldo: async (id_cliente, valor) => {
+    const sql = `
+      UPDATE clientes 
+      SET saldo_fiado = saldo_fiado - ? 
+      WHERE id = ?
+    `;
+    const [result] = await db.query(sql, [valor, id_cliente]);
+    return result.affectedRows > 0;
+  }
 };
 
 module.exports = Cliente; 
