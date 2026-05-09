@@ -1,4 +1,4 @@
-const API = "http://192.168.100.20:3000/api";
+const API = window.location.origin + "/api";
 
 async function listarClientes() {
     const res = await fetch(`${API}/clientes`);
