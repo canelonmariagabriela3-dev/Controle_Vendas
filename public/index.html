@@ -389,9 +389,13 @@
       </div>
 
       <div class="actions-grid">
-        <button class="btn-action btn-secondary-velvet" id="btn-lista-clientes">
+        <button type="button" class="btn-action btn-secondary-velvet" id="btn-lista-clientes">
           <i data-lucide="users"></i>
           Lista de Clientes
+        </button>
+        <button type="button" class="btn-action btn-primary-pink" id="btn-novo-cliente" style="margin-top:6px;">
+          <i data-lucide="user-plus"></i>
+          Novo Cliente
         </button>
       </div>
 
@@ -409,7 +413,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h2>Registrar Movimentação</h2>
-          <button class="btn-close-modal"
+          <button id="btn-fechar-modal" class="btn-close-modal"
             onclick="document.getElementById('modal-registro-transacao').classList.remove('active')">
             <i data-lucide="x"></i>
           </button>
@@ -436,12 +440,11 @@
         </form>
       </div>
     </div>
-
     <div class="modal-overlay" id="modal-novo-cliente">
       <div class="modal-content">
         <div class="modal-header">
           <h2>Novo Cliente</h2>
-          <button class="btn-close-modal"
+          <button class="btn-close-modal" type="button"
             onclick="document.getElementById('modal-novo-cliente').classList.remove('active')">
             <i data-lucide="x"></i>
           </button>
@@ -472,3 +475,10 @@
         </form>
       </div>
     </div>
+
+    <div id="notification-container" aria-live="polite" style="position:fixed;top:16px;right:16px;z-index:9999;"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
