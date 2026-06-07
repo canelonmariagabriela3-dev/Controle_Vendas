@@ -32,6 +32,8 @@ const HistoricoController = {
       });
 
     } catch (err) {
+
+      
       console.error('Erro ao registrar venda:', err);
       res.status(500).json({ error: 'Erro ao registrar venda' });
     }
