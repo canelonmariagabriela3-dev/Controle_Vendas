@@ -1,463 +1,474 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caderno Digital - Controle de Fiado</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caderno Digital - Controle de Fiado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        :root {
-            --bg-main: #1A1D24;       
-            --bg-card: #313866;       
-            --bg-secondary: #50409A;  
-            --accent-purple: #964EC2; 
-            --accent-pink: #FF7BBF;   
-            --text-main: #FFFFFF;
-            --text-muted: #B3B9C9;
-            --radius-smooth: 12px;
-            --transition: all 0.2s ease-in-out;
-        }
+    :root {
+      --bg-main: #1A1D24;
+      --bg-card: #313866;
+      --bg-secondary: #50409A;
+      --accent-purple: #964EC2;
+      --accent-pink: #FF7BBF;
+      --text-main: #FFFFFF;
+      --text-muted: #B3B9C9;
+      --radius-smooth: 12px;
+      --transition: all 0.2s ease-in-out;
+    }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
 
-        .app-container {
-            width: 100%;
-            max-width: 480px;
-            background-color: var(--bg-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            padding-bottom: 24px;
-        }
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background-color: var(--bg-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-bottom: 24px;
+    }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            background-color: rgba(26, 29, 36, 0.9);
-            backdrop-filter: blur(8px);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            border-bottom: 1px solid rgba(150, 78, 194, 0.2);
-        }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background-color: rgba(26, 29, 36, 0.9);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(150, 78, 194, 0.2);
+    }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .logo-area h1 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--text-main), var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .logo-area h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--text-main), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .btn-menu {
-            background: none;
-            border: none;
-            color: var(--text-main);
-            cursor: pointer;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
+    .btn-menu {
+      background: none;
+      border: none;
+      color: var(--text-main);
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
 
-        .btn-menu:active {
-            background-color: rgba(250, 250, 250, 0.1);
-        }
+    .btn-menu:active {
+      background-color: rgba(250, 250, 250, 0.1);
+    }
 
-        main {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            flex: 1;
-        }
+    main {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
 
-        .summary-card {
-            background-color: var(--bg-card);
-            border-radius: var(--radius-smooth);
-            padding: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(150, 78, 194, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
+    .summary-card {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-smooth);
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(150, 78, 194, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .summary-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 150px;
-            height: 150px;
-            background: var(--accent-purple);
-            filter: blur(60px);
-            opacity: 0.3;
-            pointer-events: none;
-        }
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 150px;
+      height: 150px;
+      background: var(--accent-purple);
+      filter: blur(60px);
+      opacity: 0.3;
+      pointer-events: none;
+    }
 
-        .summary-card p {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
+    .summary-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
 
-        .summary-card .value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
+    .summary-card .value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
 
-        /* Input de Busca Estilizado Velvet */
-        .search-container {
-            width: 100%;
-            position: relative;
-        }
+    /* Input de Busca Estilizado Velvet */
+    .search-container {
+      width: 100%;
+      position: relative;
+    }
 
-        .search-container input {
-            width: 100%;
-            height: 44px;
-            background-color: rgba(49, 56, 102, 0.5);
-            border: 1px solid rgba(150, 78, 194, 0.2);
-            border-radius: var(--radius-smooth);
-            padding: 0 16px 0 40px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            outline: none;
-            transition: var(--transition);
-        }
+    .search-container input {
+      width: 100%;
+      height: 44px;
+      background-color: rgba(49, 56, 102, 0.5);
+      border: 1px solid rgba(150, 78, 194, 0.2);
+      border-radius: var(--radius-smooth);
+      padding: 0 16px 0 40px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
 
-        .search-container input:focus {
-            border-color: var(--accent-pink);
-        }
+    .search-container input:focus {
+      border-color: var(--accent-pink);
+    }
 
-        .search-container i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            pointer-events: none;
-        }
+    .search-container i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
 
-        .actions-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
 
-        .btn-action {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            height: 52px;
-            border: none;
-            border-radius: var(--radius-smooth);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-        }
+    .btn-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 52px;
+      border: none;
+      border-radius: var(--radius-smooth);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
 
-        .btn-secondary-velvet {
-            background-color: var(--bg-secondary);
-            color: var(--text-main);
-            border: 1px solid rgba(150, 78, 194, 0.3);
-        }
+    .btn-secondary-velvet {
+      background-color: var(--bg-secondary);
+      color: var(--text-main);
+      border: 1px solid rgba(150, 78, 194, 0.3);
+    }
 
-        .btn-secondary-velvet:active {
-            transform: scale(0.98);
-            background-color: var(--accent-purple);
-        }
+    .btn-secondary-velvet:active {
+      transform: scale(0.98);
+      background-color: var(--accent-purple);
+    }
 
-        .btn-primary-pink {
-            background-color: var(--accent-pink);
-            color: #1A1D24; 
-            box-shadow: 0 4px 15px rgba(255, 123, 191, 0.3);
-        }
+    .btn-primary-pink {
+      background-color: var(--accent-pink);
+      color: #1A1D24;
+      box-shadow: 0 4px 15px rgba(255, 123, 191, 0.3);
+    }
 
-        .btn-primary-pink:active {
-            transform: scale(0.98);
-            filter: brightness(0.9);
-        }
+    .btn-primary-pink:active {
+      transform: scale(0.98);
+      filter: brightness(0.9);
+    }
 
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        .list-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    .list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-        .ledger-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: rgba(49, 56, 102, 0.4); 
-            border: 1px solid rgba(150, 78, 194, 0.1);
-            padding: 14px 16px;
-            border-radius: var(--radius-smooth);
-            transition: var(--transition);
-        }
+    .ledger-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(49, 56, 102, 0.4);
+      border: 1px solid rgba(150, 78, 194, 0.1);
+      padding: 14px 16px;
+      border-radius: var(--radius-smooth);
+      transition: var(--transition);
+    }
 
-        .item-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-        .item-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
+    .item-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
 
-        .item-date {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
+    .item-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
 
-        .item-value-badge {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--accent-pink);
-            background-color: rgba(255, 123, 191, 0.1);
-            padding: 6px 12px;
-            border-radius: 20px;
-        }
+    .item-value-badge {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--accent-pink);
+      background-color: rgba(255, 123, 191, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
 
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: flex-end; 
-            justify-content: center;
-            z-index: 100;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-        .modal-content {
-            width: 100%;
-            max-width: 480px;
-            background-color: var(--bg-card);
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
-            transform: translateY(100%);
-            transition: transform 0.3s ease-out;
-            border-top: 2px solid var(--accent-purple);
-        }
+    .modal-content {
+      width: 100%;
+      max-width: 480px;
+      background-color: var(--bg-card);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+      transform: translateY(100%);
+      transition: transform 0.3s ease-out;
+      border-top: 2px solid var(--accent-purple);
+    }
 
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-        }
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-        .modal-header h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
+    .modal-header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
 
-        .btn-close-modal {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .btn-close-modal {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
 
-        .form-group label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+    .form-group label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
 
-        .form-group input, .form-group select {
-            height: 48px;
-            background-color: var(--bg-main);
-            border: 1px solid var(--bg-secondary);
-            border-radius: 8px;
-            padding: 0 16px;
-            color: var(--text-main);
-            font-size: 1rem;
-            outline: none;
-            transition: var(--transition);
-        }
+    .form-group input,
+    .form-group select {
+      height: 48px;
+      background-color: var(--bg-main);
+      border: 1px solid var(--bg-secondary);
+      border-radius: 8px;
+      padding: 0 16px;
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+    }
 
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 0 2px rgba(255, 123, 191, 0.2);
-        }
-    </style>
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--accent-pink);
+      box-shadow: 0 0 0 2px rgba(255, 123, 191, 0.2);
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="app-container">
-        <header>
-            <div class="logo-area">
-                <i data-lucide="book-open" style="color: var(--accent-pink);"></i>
-                <h1>Caderno Digital</h1>
-            </div>
-            <button class="btn-menu" id="btn-menu-lateral" aria-label="Menu">
-                <i data-lucide="menu"></i>
-            </button>
-        </header>
+  <div class="app-container">
+    <header>
+      <div class="logo-area">
+        <i data-lucide="book-open" style="color: var(--accent-pink);"></i>
+        <h1>Caderno Digital</h1>
+      </div>
+      <button class="btn-menu" id="btn-menu-lateral" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </header>
 
-        <main>
-            <div class="summary-card">
-                <p>Total a Receber</p>
-                <div class="value" id="total-a-receber-valor">R$ 0,00</div>
-            </div>
+    <main>
+      <div class="summary-card">
+        <p>Total a Receber</p>
+        <div class="value" id="total-a-receber-valor">R$ 0,00</div>
+      </div>
 
-            <div class="search-container">
-                <i data-lucide="search" size="18"></i>
-                <input type="text" id="pesquisa" placeholder="Pesquisar cliente...">
-            </div>
+      <div class="search-container">
+        <i data-lucide="search" size="18"></i>
+        <input type="text" id="pesquisa" placeholder="Pesquisar cliente...">
+      </div>
 
-            <div class="actions-grid">
-                <button class="btn-action btn-secondary-velvet" id="btn-lista-clientes">
-                    <i data-lucide="users"></i>
-                    Lista de Clientes
-                </button>
-            </div>
+      <div class="actions-grid">
+        <button class="btn-action btn-secondary-velvet" id="btn-lista-clientes">
+          <i data-lucide="users"></i>
+          Lista de Clientes
+        </button>
+      </div>
 
-            <section style="margin-top: 10px;">
-                <div class="section-title">
-                    <i data-lucide="users" size="18"></i>
-                    <span>Clientes Cadastrados</span>
-                </div>
-                <div class="list-container" id="container-lista-fiado">
-                    </div>
-            </section>
-        </main>
+      <section style="margin-top: 10px;">
+        <div class="section-title">
+          <i data-lucide="users" size="18"></i>
+          <span>Clientes Cadastrados</span>
+        </div>
+        <div class="list-container" id="container-lista-fiado">
+        </div>
+      </section>
+    </main>
 
-       <div class="modal-overlay" id="modal-registro-transacao">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Registrar Movimentação</h2>
-                    <button class="btn-close-modal" onclick="document.getElementById('modal-registro-transacao').classList.remove('active')">
-                        <i data-lucide="x"></i>
-                    </button>
-                </div>
-
-                <form id="form-registrar-fiado" autocomplete="off">
-                    <div class="form-group">
-                        <label for="select-tipo">Tipo de Operação</label>
-                        <select id="select-tipo" required>
-                            <option value="venda">Venda (+ Fiado)</option>
-                            <option value="pagamento">Pagamento ($ Pago)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="input-valor">Valor (R$)</label>
-                        <input type="number" step="0.01" id="input-valor" placeholder="0,00" required>
-                    </div>
-
-                    <button type="submit" class="btn-action btn-primary-pink" style="margin-top: 15px;">
-                        <i data-lucide="check"></i>
-                        Confirmar Lançamento
-                    </button>
-                </form>
-            </div>
+    <div class="modal-overlay" id="modal-registro-transacao">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Registrar Movimentação</h2>
+          <button class="btn-close-modal"
+            onclick="document.getElementById('modal-registro-transacao').classList.remove('active')">
+            <i data-lucide="x"></i>
+          </button>
         </div>
 
-        <div class="modal-overlay" id="modal-novo-cliente">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Novo Cliente</h2>
-                    <button class="btn-close-modal" onclick="document.getElementById('modal-novo-cliente').classList.remove('active')">
-                        <i data-lucide="x"></i>
-                    </button>
-                </div>
+        <form id="form-registrar-fiado" autocomplete="off">
+          <div class="form-group">
+            <label for="select-tipo">Tipo de Operação</label>
+            <select id="select-tipo" required>
+              <option value="venda">Venda (+ Fiado)</option>
+              <option value="pagamento">Pagamento ($ Pago)</option>
+            </select>
+          </div>
 
-                <form id="form-novo-cliente" onsubmit="event.preventDefault(); criarCliente(); document.getElementById('modal-novo-cliente').classList.remove('active');" autocomplete="off">
-                    <div class="form-group">
-                        <label for="nome">Nome do Cliente</label>
-                        <input type="text" id="nome" placeholder="Ex: João Silva" required>
-                    </div>
+          <div class="form-group">
+            <label for="input-valor">Valor (R$)</label>
+            <input type="number" step="0.01" id="input-valor" placeholder="0,00" required>
+          </div>
 
-                    <div class="form-group">
-                        <label for="telefone">Telefone / WhatsApp</label>
-                        <input type="tel" id="telefone" placeholder="(85) 99999-9999" required>
-                    </div>
+          <button type="submit" class="btn-action btn-primary-pink" style="margin-top: 15px;">
+            <i data-lucide="check"></i>
+            Confirmar Lançamento
+          </button>
+        </form>
+      </div>
+    </div>
 
-                    <div class="form-group">
-                        <label for="local">Local de Trabalho / Referência</label>
-                        <input type="text" id="local" placeholder="Ex: Oficina do Zé, Bloco B">
-                    </div>
-
-                    <button type="submit" class="btn-action btn-primary-pink" style="margin-top: 15px;">
-                        <i data-lucide="user-plus"></i>
-                        Salvar Cliente
-                    </button>
-                </form>
-            </div>
+    <div class="modal-overlay" id="modal-novo-cliente">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Novo Cliente</h2>
+          <button class="btn-close-modal"
+            onclick="document.getElementById('modal-novo-cliente').classList.remove('active')">
+            <i data-lucide="x"></i>
+          </button>
         </div>
+
+        <form id="form-novo-cliente"
+          onsubmit="event.preventDefault(); criarCliente(); document.getElementById('modal-novo-cliente').classList.remove('active');"
+          autocomplete="off">
+          <div class="form-group">
+            <label for="nome">Nome do Cliente</label>
+            <input type="text" id="nome" placeholder="Ex: João Silva" required>
+          </div>
+
+          <div class="form-group">
+            <label for="telefone">Telefone / WhatsApp</label>
+            <input type="tel" id="telefone" placeholder="(85) 99999-9999" required>
+          </div>
+
+          <div class="form-group">
+            <label for="local">Local de Trabalho / Referência</label>
+            <input type="text" id="local" placeholder="Ex: Oficina do Zé, Bloco B">
+          </div>
+
+          <button type="submit" class="btn-action btn-primary-pink" style="margin-top: 15px;">
+            <i data-lucide="user-plus"></i>
+            Salvar Cliente
+          </button>
+        </form>
+      </div>
+    </div>
