@@ -5,7 +5,7 @@ const Historico = {
     const sql = `
       INSERT INTO historico 
       (id_cliente, tipo, valor) 
-      VALUES (?, ?, ?)
+      VALUES ($1, $2, $3)
     `;
 
     const [result] = await db.query(sql, [id_cliente, tipo, valor]);
