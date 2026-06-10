@@ -1,5 +1,5 @@
-const Historico = require('../models/Historico');
-const Cliente = require('../models/Cliente');
+const Historico = require('../Models/Historico');
+const Cliente = require('../Models/Cliente');
 
 const HistoricoController = {
 
