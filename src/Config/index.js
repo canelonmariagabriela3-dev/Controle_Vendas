@@ -1,14 +1,14 @@
-//conexao com o MySQL
 require('dotenv').config();
-const mysql = require('mysql2/promise'); // Usando a versão moderna (Promise)
-const dbConfig = require('./database');
+const { Pool } = require('pg'); 
 
-// Criamos a conexão usando as configurações do arquivo acima
-const connection = mysql.createPool(dbConfig);
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false // Exigido pelo Render para conexões seguras com o Postgres
+  }
+});
 
-// Teste de conexão simples (o .authenticate() do seu professor)
-connection.getConnection()
-    .then(() => console.log('Conexão com o MySQL OK!'))
-    .catch(err => console.error('ERRO AO CONECTAR NO BANCO:', err));
-
-module.exports = connection;
+// Mantemos o mesmo nome de função (getConnection) que seu server.js já usa
+module.exports = {
+  getConnection: () => pool.connect()
+};
