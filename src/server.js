@@ -1,3 +1,13 @@
+require('dotenv').config({ path: '../.env' }); // O .env costuma ficar na raiz, fora da src
+const express = require('express');
+const path = require('path'); // 👈 LINHA ADICIONADA: Sem ela, o path.join dá erro!
+const db = require('./Config/index'); // Importa a conexão do MySQL
+const clienteRoutes = require('./routes/clienteRoutes'); // Importa as rotas do cliente
+const historicoRoutes = require('./routes/historicoRoutes'); // Importa as rotas do histórico
+const app = express();
+const PORT = process.env.PORT || 3000;
+const cors = require('cors');
+
 app.use(cors());
 app.use(express.json());
 
@@ -10,6 +20,7 @@ app.use('/api', historicoRoutes); // Prefixa as rotas com /api, por exemplo: /ap
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
+
 // O teste de conexão que você queria
 db.getConnection()
     .then(conn => {
@@ -17,7 +28,7 @@ db.getConnection()
         conn.release();
 
         app.listen(PORT, '0.0.0.0', () => {
-            console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+            console.log(`🚀 Servidor rodando com sucesso na porta ${PORT}`);
         });
     })
     .catch(err => {
