@@ -1,14 +1,16 @@
 require('dotenv').config();
-const { Pool } = require('pg'); 
+const mysql = require('mysql2/promise');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false // Exigido pelo Render para conexões seguras com o Postgres
-  }
+// Suporta tanto MySQL local quanto Render
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'Controle_Vendas',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
-// Mantemos o mesmo nome de função (getConnection) que seu server.js já usa
-module.exports = {
-  getConnection: () => pool.connect()
-};
+module.exports = pool;

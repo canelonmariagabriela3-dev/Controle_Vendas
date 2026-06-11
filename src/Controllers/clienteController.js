@@ -29,10 +29,8 @@ const ClienteController = {
             const cliente = await Cliente.buscarPorId(id);
             if (!cliente) {
                 return res.status(404).json({ error: 'Cliente não encontrado' });
-
-            } else {
-                res.status(200).json(cliente);
             }
+            res.status(200).json(cliente);
         } catch (err) {
             console.error('Erro ao buscar cliente:', err);
             res.status(500).json({ error: 'Erro ao buscar cliente' });

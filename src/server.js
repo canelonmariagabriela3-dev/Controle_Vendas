@@ -1,9 +1,9 @@
-require('dotenv').config({ path: '../.env' }); // O .env costuma ficar na raiz, fora da src
+require('dotenv').config();
 const express = require('express');
-const path = require('path'); // 👈 LINHA ADICIONADA: Sem ela, o path.join dá erro!
-const db = require('./Config/index'); // Importa a conexão do MySQL
-const clienteRoutes = require('./routes/clienteRoutes'); // Importa as rotas do cliente
-const historicoRoutes = require('./routes/historicoRoutes'); // Importa as rotas do histórico
+const path = require('path');
+const db = require('./Config/index');
+const clienteRoutes = require('./routes/clienteRoutes');
+const historicoRoutes = require('./routes/historicoRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require('cors');
@@ -13,18 +13,18 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use('/api', clienteRoutes); // Prefixa as rotas com /api, por exemplo: /api/clientes
-app.use('/api', historicoRoutes); // Prefixa as rotas com /api, por exemplo: /api/historico
+app.use('/api', clienteRoutes);
+app.use('/api', historicoRoutes);
 
-// ROTA CORINGA: Garante que o Render entregue o index.html na tela do celular
-app.get('*', (req, res) => {
+// Rota para SPA: serve index.html para rotas não reconhecidas
+app.use((req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
-// O teste de conexão que você queria
+// Teste de conexão com o banco de dados
 db.getConnection()
     .then(conn => {
-        console.log('✅ Conexão estabelecida com sucesso!');
+        console.log('✅ Conexão com banco de dados estabelecida com sucesso!');
         conn.release();
 
         app.listen(PORT, '0.0.0.0', () => {
@@ -34,4 +34,4 @@ db.getConnection()
     .catch(err => {
         console.error('❌ Erro crítico ao conectar no banco:', err.message);
         process.exit(1);
-    }); //http://localhost:3000/api/clientes
+    });
